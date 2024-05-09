@@ -1,4 +1,4 @@
-package stack;
+package stack.static_stack;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -93,7 +93,7 @@ public class ArrayStack<E> {
 
     @Override
     public String toString() {
-        return "stack.ArrayStack{" +
+        return "stack.static_stack.ArrayStack{" +
                 "arr=" + Arrays.toString(arr) +
                 '}';
     }

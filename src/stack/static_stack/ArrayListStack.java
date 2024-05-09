@@ -1,6 +1,7 @@
-package stack;
+package stack.static_stack;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 
 public class ArrayListStack <E> {
 
@@ -35,6 +36,8 @@ public class ArrayListStack <E> {
     }
 
     public E peek(){
+        if (list.isEmpty())
+            throw new EmptyStackException();
         return list.get(top);
     }
 
