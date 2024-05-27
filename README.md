@@ -1,3 +1,10 @@
+# Java Collection framework 직접구현
+### Java Collection framework를 직접 구현하여 정리하고자 한다.
+
+# List
+## 1. ArrayList
+
+
 # Stack
 스택은 컴퓨터에서 아주 많이 사용하는 자료구조로서, 쌓아놓은 더미를 뜻한다.
 
@@ -15,3 +22,11 @@
 - 배열( 정적 )과 연결리스트( 동적 )를 활용한 구현이 있다.
 
 
+# Deque
+덱은 어떤 쪽으로 입력하고 어떤 쪽으로 출력하느냐에 따라서 스택으로 사용할 수도 있고, 큐로도 사용할 수 있다.
+
+
+### 특징
+- ArrayDeque, LinkedBlockingDeque, ConcurrentLinkedDeque, LinkedList 등의 클래스
+- 단방향인 queue와는 달리 양방향 구조이다.
+- 단방향구조였던 queue 인터페이스를 상속받아서 양방향 메소드를 더 추가해주는 과정을 거친것
