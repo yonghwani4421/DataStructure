@@ -1,4 +1,4 @@
-package List;
+package list;
 /**
  * 자바 LIST 인터페이스
  * List는 ArrayList, SinglyLinkedList, DoublyLinked에 의해 각각 구현

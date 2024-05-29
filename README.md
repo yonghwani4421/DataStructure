@@ -2,7 +2,12 @@
 ### Java Collection framework를 직접 구현하여 정리하고자 한다.
 
 # List
-## 1. ArrayList
+### ArrayList
+- 배열을( Object[] ) 이용한 리스트 구현
+### SingleLinkedList
+- 배열을 사용하는 것이 아닌 하나의 객체를 두고 그안에 데이터와 다른 노드를 가리키는 래퍼런스 데이터로 구성하여 여러 노드를 하나의 체인 처럼 연결
+- 단방향 연결 리스트이다.
+
 
 
 # Stack
