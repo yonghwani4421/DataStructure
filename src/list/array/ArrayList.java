@@ -1,4 +1,6 @@
-package list;
+package list.array;
+
+import list.List;
 
 import java.util.Arrays;
 

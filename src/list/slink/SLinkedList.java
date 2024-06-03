@@ -1,4 +1,6 @@
-package list;
+package list.slink;
+
+import list.List;
 
 import java.util.NoSuchElementException;
 

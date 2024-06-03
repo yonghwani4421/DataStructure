@@ -1,4 +1,4 @@
-package list;
+package list.slink;
 
 class Node<E> {
     E data;
