@@ -3,6 +3,8 @@ package list.dlink;
 
 import list.List;
 
+import java.util.NoSuchElementException;
+
 /**
  * @AUTHOR dyd71
  * @DATE 2024-06-03
@@ -89,20 +91,28 @@ public class DLinkedList<E> implements List<E> {
     @Override
     public void add(int index, E value) {
 
+        // 인덱스 범위 확인
         if (index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
 
+        // 첫번째 삽입이라면 addFirst 호출
         if (index == 0){
             addFirst(value);
             return;
         }
 
+        // 마지막 삽입이라면 addLast 호출
         if (index == size){
             addLast(value);
             return;
         }
 
+        /**
+         * 첫 삽입, 마지막 삽입 외 인덱스 삽입 연산시
+         * 삽입할 index 하나 전 노드, 삽입할 인덱스의
+         * 노드를 지정하여 기존 연결을 끊고 newNode에 새롭게 연결하여 삽입한다.
+         */
         Node<E> prev_Node = search(index - 1);
         Node<E> next_Node = prev_Node.prev;
         Node<E> newNode = new Node<>(value);
@@ -119,43 +129,188 @@ public class DLinkedList<E> implements List<E> {
         size++;
     }
 
+    private E remove(){
+
+        Node<E> headNode = head;
+
+        // List에 아무 것도 없는 경우
+        if (headNode == null){
+            throw new NoSuchElementException();
+        }
+
+        // 반환하기 위한 값
+        E element = head.data;
+
+        Node<E> nextNode = head.next;
+
+
+        head.data = null;
+        head.next = null;
+
+        if (nextNode != null){
+            nextNode.prev = null;
+        }
+
+        head = nextNode;
+        size--;
+
+        if (size == 0){
+            tail = null;
+        }
+        return element;
+    }
+
     @Override
     public E remove(int index) {
-        return null;
+
+        // 인덱스 범위가 벚어난 경우
+        if (index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        }
+
+
+        // 가장 앞의 인덱스의 경우
+        if (index == 0){
+            return remove();
+        }
+
+        Node<E> prevNode = search(index - 1);
+        Node<E> removeNode = prevNode.next;
+        Node<E> nextNode = removeNode.next;
+        E element = removeNode.data;
+
+        prevNode.next = null;
+        removeNode.next = null;
+        removeNode.prev = null;
+        removeNode.data = null;
+
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+
+
+        /**
+         * nextNode가 null이라는 것은 마지막 노드를 삭제했다는 의미
+         */
+        if (nextNode != null){
+            nextNode.prev = null;
+
+            nextNode.prev = prevNode;
+            prevNode.next = nextNode;
+        }
+        else {
+            tail = prevNode;
+        }
+        size--;
+
+        return element;
     }
 
     @Override
     public boolean remove(Object value) {
-        return false;
+
+        Node<E> prevNode = head;
+        Node<E> x = head;
+
+        for (; x != null; x = x.next){
+            if (value.equals(x.data)){
+                break;
+            }
+            prevNode = x;
+        }
+
+        if (x == null){
+            return false;
+        }
+
+        if (x.equals(head)){
+            remove();
+            return true;
+        } else {
+            Node<E> nextNode = x.next;
+
+            prevNode.next = null;
+            x.data = null;
+            x.next = null;
+            x.prev = null;
+
+            if (nextNode != null){
+                nextNode.prev = null;
+
+                nextNode.prev = prevNode;
+                prevNode.next = nextNode;
+            } else {
+                tail = prevNode;
+            }
+            size--;
+            return true;
+        }
     }
 
     @Override
     public E get(int index) {
-        return null;
+        return search(index).data;
     }
 
     @Override
     public void set(int index, E value) {
 
+        Node<E> setNode = search(index);
+        setNode.data = null;
+        setNode.data = value;
+        search(index).data = value;
     }
 
     @Override
     public boolean contains(Object value) {
-        return false;
+        return indexOf(value) >= 0;
     }
 
     @Override
     public int indexOf(Object value) {
-        return 0;
+        int index = 0;
+
+        for (Node<E> x = head; x != null; x = x.next){
+            if (value.equals(x.data)){
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(Object value){
+        int index = size;
+        for (Node<E> x = tail; x != null; x = x.prev){
+            index--;
+            if (value.equals(x.data)){
+                return index;
+            }
+        }
+        return -1;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public void clear() {
-
+        /**
+         * 모든 요소를 전부 null로 초기화 해주는것이 자바의 가비지 컬렉터가 명시적으로
+         * 해당 메모리를 안쓴다고 인지하기에 메모리 관리 효율 측면에서 더욱 좋다.
+         */
+        for (Node<E> x = head; x != null;){
+            Node<E> nextNode = x.next;
+            x.next = null;
+            x.data = null;
+            x.prev = null;
+            x = nextNode;
+        }
+        head = tail = null;
+        size = 0;
+    }
+    public int size() {
+        return size;
     }
 }
