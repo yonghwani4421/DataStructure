@@ -1,6 +1,7 @@
 package stack.dynamic_stack;
 
 import java.util.EmptyStackException;
+import java.util.Stack;
 
 public class LinkedStack<E> {
 
