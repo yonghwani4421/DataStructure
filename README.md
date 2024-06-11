@@ -35,6 +35,9 @@
 ### ArrayQueue
 - package queue.array
 - 배열을( Object[] ) 이용한 queue 구현
+### LinkedQueue
+- package queue.link
+- Node 클래스 활용하여 단방향 연결리스트로 구현
  
 # Deque
 덱은 어떤 쪽으로 입력하고 어떤 쪽으로 출력하느냐에 따라서 스택으로 사용할 수도 있고, 큐로도 사용할 수 있다.
